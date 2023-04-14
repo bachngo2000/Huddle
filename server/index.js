@@ -8,6 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path"; /*help us to properly set the paths when we configure directories later on*/
 import { fileURLToPath } from "url"; /*help us to properly set the paths when we configure directories later on*/
+import {register} from "./controllers/auth.js";
 
 /* CONFIGURATIONS OF MIDDLEWARE AND PACKAGES */
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +37,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* ROUTES WITH FILES*/
+/* AUTHENTICATION: When the user registers, and then is logged in  */
+// If a user wants to register, we will call this API from the frontend.
+app.post("/auth/register", upload.single("picture"), register);
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
