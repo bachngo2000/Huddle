@@ -9,7 +9,11 @@ import morgan from "morgan";
 import path from "path"; /*help us to properly set the paths when we configure directories later on*/
 import { fileURLToPath } from "url"; /*help us to properly set the paths when we configure directories later on*/
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
 import {register} from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
+import { verifyToken } from "./middleware/auth.js";
 
 /* CONFIGURATIONS OF MIDDLEWARE AND PACKAGES */
 const __filename = fileURLToPath(import.meta.url);
@@ -40,10 +44,13 @@ const upload = multer({ storage });
 /* ROUTES WITH FILES*/
 /* AUTHENTICATION: When the user registers, and then is logged in  */
 // If a user wants to register, we will call this API from the frontend.
-app.post("/auth/register", upload.single("picture"), register);
-
+app.post("/auth/register", upload.single("picture"), verifyToken, register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 /* ROUTES */
 app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
+
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
