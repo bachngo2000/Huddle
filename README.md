@@ -1,7 +1,7 @@
 # Web Development Final Project - Sociopedia
 Submitted by: Bach Nguyen-Ngo
 
-This web app: **insert description**
+This web app: a social media app
 
 Time spent: > 25 hours spent in total
 
