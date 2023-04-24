@@ -21,6 +21,11 @@ The following **required** functionality is completed:
 - [x] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
 - [ ] **A previously created post can be edited or deleted from its post page**
 
+The following **additional** features are implemented:
+
+* [x] User can create an account with their username, password, and email
+* [x] User can upload a picture for their profile
+* [x] User can add or unadd friend as they like
 
 ## Video Walkthrough
 
