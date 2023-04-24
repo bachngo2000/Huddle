@@ -3,7 +3,7 @@ Submitted by: Bach Nguyen-Ngo
 
 This web app: **insert description**
 
-Time spent: 25 hours spent in total
+Time spent: > 25 hours spent in total
 
 ## Required Features
 
@@ -26,7 +26,7 @@ The following **required** functionality is completed:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...  
