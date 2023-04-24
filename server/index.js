@@ -18,20 +18,26 @@ import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
 
+/* Middleware Configurations */
+const __filename = fileURLToPath(import.meta.url) //this is so we can grab fileurl specifically for using modules
+const __dirname = path.dirname(__filename)
+dotenv.config()
+const app = express()
+//middleware function that parses incoming requests with JSON 
+app.use(express.json())
+//helmet helps secure express apps by setting various HTTP headers
+app.use(helmet())
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
+//morgan is a request logger middleware
+app.use(morgan("common"))
+//Parse incoming request bodies in a middleware before your handlers
+app.use(bodyParser.json({ limit: "30mb", extended: true }))
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
+//provides CORS options
+app.use(cors())
+//to serve static files like images, CSS, html, use express.static
+app.use("/assets", express.static(path.join(__dirname, 'public/assets')))
 
-/* CONFIGURATIONS OF MIDDLEWARE AND PACKAGES */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config();
-const app = express();
-app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy : "cross-origin"}));
-app.use(morgan("common"));
-app.use(bodyParser.json( {limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded( {limit: "30mb", extended: true }));
-app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
 
 /* FILE STORAGE */
 const storage = multer.diskStorage({
@@ -48,7 +54,7 @@ const upload = multer({ storage });
 /* ROUTES WITH FILES*/
 /* AUTHENTICATION: When the user registers, and then is logged in  */
 // If a user wants to register, we will call this API from the frontend.
-app.post("/auth/register", upload.single("picture"), verifyToken, register);
+app.post("/auth/register", upload.single("picture"), register);
 app.post("/posts", verifyToken, upload.single("picture"), createPost);
 /* ROUTES */
 app.use("/auth", authRoutes);
@@ -58,6 +64,9 @@ app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
+console.log('MONGO_URl:', process.env.MONGO_URL); // Add this
+console.log('JWT_SECRET:', process.env.JWT_SECRET);
+console.log('PORT:', process.env.PORT);
 mongoose
     .connect(process.env.MONGO_URL, {
     useNewURLParser: true,

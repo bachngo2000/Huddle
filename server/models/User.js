@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema (
+const UserSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
@@ -18,12 +18,16 @@ const UserSchema = new mongoose.Schema (
             type: String,
             required: true,
             max: 50,
-            unique: true
+            unique: true,
         },
         password: {
             type: String,
             required: true,
             min: 5,
+        },
+        picture: {
+            type: String,
+            default: "",
         },
         picturePath: {
             type: String,
@@ -37,10 +41,11 @@ const UserSchema = new mongoose.Schema (
         occupation: String,
         viewedProfile: Number,
         impressions: Number,
-    },
-    { timestamps: true }
-);
+    }, {timestamps: true}
+)
 
-const User = mongoose.model("User", UserSchema);
+//so when u create a mongoose model, you want to create the schema first, and then pass it into 
+//mongoose.model and then pass it into User to export
+const User = mongoose.model("User", UserSchema)
 
-export default User;
+export default User

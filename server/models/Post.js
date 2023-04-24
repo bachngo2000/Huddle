@@ -1,5 +1,7 @@
+
 import mongoose from "mongoose";
 
+//one individual post has all these traits
 const postSchema = mongoose.Schema(
   {
     userId: {
@@ -29,6 +31,8 @@ const postSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+//Map is the key,value pair data structure
 
 const Post = mongoose.model("Post", postSchema);
 

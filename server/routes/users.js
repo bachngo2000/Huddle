@@ -1,18 +1,16 @@
-import express from "express";
-import {
-  getUser,
-  getUserFriends,
-  addRemoveFriend,
-} from "../controllers/users.js";
-import { verifyToken } from "../middleware/auth.js";
+import express from "express"
+import { getUser, getUserFriends, addRemoveFriend } from "../controllers/users.js"
+import { verifyToken } from "../middleware/auth.js"
 
-const router = express.Router();
+const router = express.Router()
 
 /* READ */
-router.get("/:id", verifyToken, getUser);
-router.get("/:id/friends", verifyToken, getUserFriends);
+// /:id means if the frontend is sending a particular id we 
+// can grab it using this syntax aka query string
+router.get("/:id", verifyToken, getUser)
+router.get("/:id/friends", verifyToken, getUserFriends)
 
 /* UPDATE */
-router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
+router.patch("/:id/:friendId", verifyToken, addRemoveFriend)
 
 export default router;
